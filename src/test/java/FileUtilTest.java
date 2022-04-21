@@ -42,6 +42,30 @@ public class FileUtilTest {
         path = "/_modules/sephora/shop/idb/_lib/category.inc.php";
         libraryName = FileUtil.getLibraryNameByPath(path);
         assertEquals("Ожидалось совпадение классов", "U__shop_idb_category", libraryName);
+
+
+        // classes in engine directory
+        // case 8
+        path = "/_engine/_lib/category.inc.php";
+        libraryName = FileUtil.getLibraryNameByPath(path);
+        assertEquals("Ожидалось совпадение классов", "U_category", libraryName);
+        path = "/_engine/_lib/api/category.inc.php";
+        libraryName = FileUtil.getLibraryNameByPath(path);
+        assertEquals("Ожидалось совпадение классов", "U_api_category", libraryName);
+        path = "/_engine/category.inc.php";
+        libraryName = FileUtil.getLibraryNameByPath(path);
+        assertEquals("Ожидалось совпадение классов", "", libraryName);
+
+        // classes in other directories (restricted)
+        path = "/files/sephora/shop/idb/lib/category.inc.php";
+        libraryName = FileUtil.getLibraryNameByPath(path);
+        assertEquals("Ожидалось совпадение классов", "", libraryName);
+        path = "/src/sephora/shop/idb/lib/category.inc.php";
+        libraryName = FileUtil.getLibraryNameByPath(path);
+        assertEquals("Ожидалось совпадение классов", "", libraryName);
+        path = "/src/category.inc.php";
+        libraryName = FileUtil.getLibraryNameByPath(path);
+        assertEquals("Ожидалось совпадение классов", "", libraryName);
     }
     @Test
     public void getModuleClassNameByPathTest() {
@@ -78,5 +102,26 @@ public class FileUtilTest {
         path = "/_modules/sephora/shop/idb/lib/category.inc.php";
         libraryName = FileUtil.getModuleNameByPath(path);
         assertEquals("Ожидалось совпадение классов", "U_mod_shop_idb_lib_category", libraryName);
+
+        // classes in engine directory
+        // case 8
+        path = "/_engine/_lib/category.inc.php";
+        libraryName = FileUtil.getModuleNameByPath(path);
+        assertEquals("Ожидалось совпадение классов", "", libraryName);
+        path = "/_engine/category.inc.php";
+        libraryName = FileUtil.getModuleNameByPath(path);
+        assertEquals("Ожидалось совпадение классов", "", libraryName);
+
+        // classes in other directories (restricted)
+        path = "/files/sephora/shop/idb/lib/category.inc.php";
+        libraryName = FileUtil.getModuleNameByPath(path);
+        assertEquals("Ожидалось совпадение классов", "", libraryName);
+        path = "/src/sephora/shop/idb/lib/category.inc.php";
+        libraryName = FileUtil.getModuleNameByPath(path);
+        assertEquals("Ожидалось совпадение классов", "", libraryName);
+        path = "/src/category.inc.php";
+        libraryName = FileUtil.getModuleNameByPath(path);
+        assertEquals("Ожидалось совпадение классов", "", libraryName);
+
     }
 }

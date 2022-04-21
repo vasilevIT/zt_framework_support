@@ -16,7 +16,7 @@ public class FileUtil {
     }
 
     public static String getLibraryNameByPath(String path) {
-
+        ClassNameGenerator generator = ClassNameGeneratorFactory.create("library");
         String[] paths = getClearPathParths(path);
 
         if (paths.length == 0) {
@@ -26,11 +26,24 @@ public class FileUtil {
 
         if (paths[0].equals("_engine")) {
             // engine directory
-            // TODO
+            if (!isInLibDirectory(path)) {
+                return "";
+            }
+
+            String className = "U_";
+            // TODO Delete these code duplicate.
+            for (int i = 2; i < paths.length; i++) {
+                className += paths[i];
+                if (i < paths.length - 1) {
+                    className += "_";
+                }
+            }
+            return className;
         }
         if (paths[0].equals("_modules")) {
             // _modules directory
             String className = "U__";
+            // TODO Delete these code duplicate.
             for (int i = 2; i < paths.length; i++) {
                 if (paths[i].equals("_lib")) {
                     if (i < paths.length - 2) {
@@ -51,6 +64,7 @@ public class FileUtil {
     }
 
     public static String getModuleNameByPath(String path) {
+        ClassNameGenerator generator = ClassNameGeneratorFactory.create("module");
         String[] paths = getClearPathParths(path);
 
         if (paths.length == 0) {
