@@ -53,30 +53,30 @@ public class PopupDialogAction extends AnAction {
         Project currentProject = event.getProject();
         StringBuilder dlgMsg = new StringBuilder(event.getPresentation().getText() + " Selected!");
         String dlgTitle = event.getPresentation().getDescription();
-        // If an element is selected in the editor, add info about it.
-        Navigatable nav = event.getData(CommonDataKeys.NAVIGATABLE);
-
-        if (nav != null) {
-            // PsiManager.getInstance(currentProject).findFile(virtualFile);
-            PsiDirectory[] selectedDirectories = ProjectView.getInstance(currentProject).getCurrentProjectViewPane().getSelectedDirectories();
-            for (var selectedDirectory:
-                 selectedDirectories) {
-                System.out.println(selectedDirectory.getFiles());
-                PsiFileFactory factory = PsiFileFactory.getInstance(currentProject);
-//                PsiFile file = factory.createFileFromText("php", "<?php ?>");
-                System.out.println("created File");
-//                System.out.println(file);
-                // If that library class
-                if (selectedDirectory.getParentDirectory().getName() == "_lib") {
-
-                } else {
-                    // otherwise its a module
-                }
-                selectedDirectory.createFile("test.inc.php");
-//                CreateWithTemplatesDialogPanel
-            }
-            dlgMsg.append(String.format("\nSelected Element: %s", nav.toString()));
-        }
+//        // If an element is selected in the editor, add info about it.
+//        Navigatable nav = event.getData(CommonDataKeys.NAVIGATABLE);
+//
+//        if (nav != null) {
+//            // PsiManager.getInstance(currentProject).findFile(virtualFile);
+//            PsiDirectory[] selectedDirectories = ProjectView.getInstance(currentProject).getCurrentProjectViewPane().getSelectedDirectories();
+//            for (var selectedDirectory:
+//                 selectedDirectories) {
+//                System.out.println(selectedDirectory.getFiles());
+//                PsiFileFactory factory = PsiFileFactory.getInstance(currentProject);
+////                PsiFile file = factory.createFileFromText("php", "<?php ?>");
+//                System.out.println("created File");
+////                System.out.println(file);
+//                // If that library class
+//                if (selectedDirectory.getParentDirectory().getName() == "_lib") {
+//
+//                } else {
+//                    // otherwise its a module
+//                }
+//                selectedDirectory.createFile("test.inc.php");
+////                CreateWithTemplatesDialogPanel
+//            }
+//            dlgMsg.append(String.format("\nSelected Element: %s", nav.toString()));
+//        }
         Messages.showMessageDialog(currentProject, dlgMsg.toString(), dlgTitle, Messages.getInformationIcon());
     }
 

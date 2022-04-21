@@ -1,7 +1,7 @@
 <idea-plugin>
     <id>com.vasilev.it.example_plugin</id>
-    <name>Plugin display name here</name>
-    <vendor email="support@yourcompany.com" url="http://www.yourcompany.com">YourCompany</vendor>
+    <name>ZT Framework Tools</name>
+    <vendor email="av@zerotech.ru" url="https://zerotech.ru">ZeroTech</vendor>
 
     <description><![CDATA[
     Enter short description for your plugin here.<br>
@@ -10,7 +10,10 @@
 
     <!-- please see https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html
          on how to target different products -->
+<!--    <depends>com.intellij.modules.platform</depends>-->
+    <depends>com.jetbrains.php</depends>
     <depends>com.intellij.modules.platform</depends>
+    <depends>com.intellij.database</depends>
 
     <extensions defaultExtensionNs="com.intellij">
         <!-- Add your extensions here -->
