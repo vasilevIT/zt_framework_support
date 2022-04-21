@@ -1,0 +1,62 @@
+plugins {
+    id 'org.jetbrains.intellij' version '1.5.2'
+}
+
+//java {
+//    sourceCompatibility = "1.7"
+//    targetCompatibility = "1.8"
+//}
+
+group 'com.vasilev.it'
+version '1.0-SNAPSHOT'
+
+
+// See https://github.com/JetBrains/gradle-intellij-plugin/
+intellij {
+//    type = 'IU'
+//    version = '2021.3.2'
+//    version = '212.5457.49'
+//    targetIDE = '212.5457.49'
+//    version = '212.5457.49'
+    version = '213.5744.202'
+//    version = '193.5233.102'
+
+    repositories {
+        mavenCentral()
+    }
+
+//    plugins = 'com.jetbrains.php:193.5233.102'
+    plugins = [
+//            "com.jetbrains.php:212.5457.49",
+            "com.jetbrains.php:213.5744.202",
+//            "com.jetbrains.php:193.5233.102",
+//            "com.intellij.modules.ultimate",
+//            "com.jetbrains.php.dql",
+//            "de.espend.idea.php.annotation",
+//            "com.intellij.openapi",
+            "java-i18n",
+//            "com.intellij.css",
+            "properties",
+            "xpath",
+            "java"
+            ]
+}
+
+runIde {
+    ideDir = file('/Applications/PhpStorm.app/Contents')
+//    ideDirectory = "/Users/antonvasilev/Library/Application Support/JetBrains/Toolbox/apps/PhpStorm/ch-0/193.5233.101/PhpStorm.app/Contents"
+}
+
+patchPluginXml {
+    changeNotes = """
+      Add change notes here.<br>
+      <em>most HTML tags may be used</em>"""
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.jetbrains:annotations:20.1.0'
+}
