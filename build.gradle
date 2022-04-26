@@ -2,49 +2,21 @@ plugins {
     id 'org.jetbrains.intellij' version '1.5.2'
 }
 
-//java {
-//    sourceCompatibility = "1.7"
-//    targetCompatibility = "1.8"
-//}
 
 group 'com.vasilev.it'
 version '1.0-SNAPSHOT'
 
 
-//val platformPluginsAssociation = hashMapOf<String, String>()
-//platformPluginsAssociation["2019.1.4"] = "com.jetbrains.php:191.8026.56, org.jetbrains.plugins.phpstorm-remote-interpreter:191.5849.22, com.jetbrains.twig:191.6183.95"
-//platformPluginsAssociation["2020.2.3"] = "com.jetbrains.php:202.7660.42, org.jetbrains.plugins.phpstorm-remote-interpreter:202.6397.59, com.jetbrains.twig:202.6397.21"
-//platformPluginsAssociation["2020.3.3"] = "com.jetbrains.php:203.7717.11, org.jetbrains.plugins.phpstorm-remote-interpreter:203.5981.155, com.jetbrains.twig:203.6682.75"
-//platformPluginsAssociation["2021.1"] = "com.jetbrains.php:211.6693.120, org.jetbrains.plugins.phpstorm-remote-interpreter:211.6693.65, com.jetbrains.twig:211.6693.44, PsiViewer:211-SNAPSHOT"
-//platformPluginsAssociation["2021.2"] = "com.jetbrains.php:212.4746.92, org.jetbrains.plugins.phpstorm-remote-interpreter:212.4746.52, com.jetbrains.twig:212.4746.57, PsiViewer:212-SNAPSHOT"
-//val bundledPlugins = "DatabaseTools, webDeployment, CSS, terminal, coverage, java-i18n, remote-run, properties"
-// See https://github.com/JetBrains/gradle-intellij-plugin/
 intellij {
-//    type = 'IU'
-//    version = '2021.3.2'
-//    version = '212.5457.49'
-//    targetIDE = '212.5457.49'
-//    version = '212.5457.49'
-//    version = '213.5744.202'
-//    version = '193.5233.102'
     version = '212.4746.92' // PhpStorm 2021.2
 
     repositories {
         mavenCentral()
     }
 
-//    plugins = 'com.jetbrains.php:193.5233.102'
     plugins = [
-//            "com.jetbrains.php:212.5457.49",
-//            "com.jetbrains.php:213.5744.202",
             "com.jetbrains.php:212.4746.92", // PhpStorm 2021.2
-//            "com.jetbrains.php:193.5233.102",
-//            "com.intellij.modules.ultimate",
-//            "com.jetbrains.php.dql",
-//            "de.espend.idea.php.annotation",
-//            "com.intellij.openapi",
             "java-i18n",
-//            "com.intellij.css",
             "properties",
             "xpath",
             "java"
@@ -57,8 +29,8 @@ runIde {
 
 patchPluginXml {
     changeNotes = """
-      Add change notes here.<br>
-      <em>most HTML tags may be used</em>"""
+      Change notes.<br>
+      <em>Dialog for create ZT-specific class with generated name and code</em>"""
 }
 
 repositories {

@@ -16,65 +16,13 @@ public class FileUtil {
     }
 
     public static String getLibraryNameByPath(String path) {
-
-        String[] paths = getClearPathParths(path);
-
-        if (paths.length == 0) {
-            System.err.println("Class path is empty!");
-            return "";
-        }
-
-        if (paths[0].equals("_engine")) {
-            // engine directory
-            // TODO
-        }
-        if (paths[0].equals("_modules")) {
-            // _modules directory
-            String className = "U__";
-            for (int i = 2; i < paths.length; i++) {
-                if (paths[i].equals("_lib")) {
-                    if (i < paths.length - 2) {
-                    } else {
-                        continue;
-                    }
-                } else {
-                    className += paths[i];
-                }
-                if (i < paths.length - 1) {
-                    className += "_";
-                }
-            }
-
-            return className;
-        }
-        return "";
+        ClassNameGenerator generator = ClassNameGeneratorFactory.create("library");
+        return generator.generate(path);
     }
 
     public static String getModuleNameByPath(String path) {
-        String[] paths = getClearPathParths(path);
-
-        if (paths.length == 0) {
-            System.err.println("Class path is empty!");
-            return "";
-        }
-
-        if (paths[0].equals("_engine") || isInLibDirectory(path)) {
-            return "";
-        }
-
-        if (paths[0].equals("_modules")) {
-            // _modules directory
-            String className = "U_mod_";
-            for (int i = 2; i < paths.length; i++) {
-                className += paths[i];
-                if (i < paths.length - 1) {
-                    className += "_";
-                }
-            }
-
-            return className;
-        }
-        return "";
+        ClassNameGenerator generator = ClassNameGeneratorFactory.create("module");
+        return generator.generate(path);
     }
 
     /**
@@ -84,7 +32,7 @@ public class FileUtil {
      * @return
      */
     @NotNull
-    private static String[] getClearPathParths(String parts) {
+    static String[] getClearPathParths(String parts) {
         String[] paths = parts.split("\\/");
         paths = Arrays.stream(paths).filter(x -> !x.isEmpty()).toArray(String[]::new);
         if (paths[paths.length - 1].contains(".inc.php")) {

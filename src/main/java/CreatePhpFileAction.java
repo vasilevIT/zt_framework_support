@@ -73,7 +73,7 @@ public class CreatePhpFileAction extends CreateFileFromTemplateAction {
             try {
                 FileWriter myWriter = new FileWriter(absolutePath);
                 String fullClassName = FileUtil.getLibraryNameByPath(path);
-                myWriter.write("<?php" + System.lineSeparator().repeat(3) + "class " + fullClassName + " {" + System.lineSeparator().repeat(3) + "}" + System.lineSeparator().repeat(2) + "?>");
+                myWriter.write("<?php" + System.lineSeparator().repeat(3) + "class " + fullClassName + "  {" + System.lineSeparator().repeat(3) + "}" + System.lineSeparator().repeat(2) + "?>");
 
                 myWriter.close();
             } catch (IOException e) {
@@ -90,7 +90,7 @@ public class CreatePhpFileAction extends CreateFileFromTemplateAction {
                 try {
                     FileWriter myWriter = new FileWriter(absolutePath);
                     String fullClassName = FileUtil.getModuleNameByPath(path);
-                    myWriter.write("<?php" + System.lineSeparator().repeat(3) + "class " + fullClassName + " {" + System.lineSeparator().repeat(3) + '\t' + "public static function main(array $args, array $messages): int {" + System.lineSeparator().repeat(3) + '\t' + '}' + System.lineSeparator() + "}" + System.lineSeparator().repeat(2) + "?>");
+                    myWriter.write("<?php" + System.lineSeparator().repeat(3) + "class " + fullClassName + " {" + System.lineSeparator().repeat(3) + " ".repeat(4) + "public static function main(array $args, array $messages): int {" + System.lineSeparator().repeat(3) + " ".repeat(3) + '}' + System.lineSeparator() + "}" + System.lineSeparator().repeat(2) + "?>");
 
                     myWriter.close();
                 } catch (IOException e) {
