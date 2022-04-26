@@ -4,13 +4,11 @@
     <vendor email="av@zerotech.ru" url="https://zerotech.ru">ZeroTech</vendor>
 
     <description><![CDATA[
-    Enter short description for your plugin here.<br>
-    <em>most HTML tags may be used</em>
+    Plugin can help you to develop for ZeroTech framework.<br>
+    Plugin includes the following posibilities:
+    <em>Created ZT-specific classes</em>
     ]]></description>
 
-    <!-- please see https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html
-         on how to target different products -->
-<!--    <depends>com.intellij.modules.platform</depends>-->
     <depends>com.jetbrains.php</depends>
     <depends>com.intellij.modules.platform</depends>
     <depends>com.intellij.database</depends>
@@ -20,36 +18,10 @@
     </extensions>
 
     <actions>
-        <!--
-      DynamicActionGroup demonstrates declaring an action group without a static action declaration.
-      An action is added to the group programmatically in the DynamicActionGroup implementation.
-    -->
-        <!--Тут добавляется пункт меню в меню создания нового файла (в главном меню и в дереве) - УРА!-->
         <group id="org.intellij.sdk.action.DynamicActionGroup" class="DynamicActionGroup"
                text="Dynamically Grouped Actions" description="SDK dynamically grouped action example"
                >
             <add-to-group group-id="NewGroup" anchor="after" relative-to-action="NewFile"/>
         </group>
-        <group
-                id="org.intellij.sdk.action.FileMainSettingsGroup"
-                text="Static Grouped Actions"
-                popup="true">
-            <add-to-group
-                    group-id="FileOpenGroup"
-                    anchor="after"
-                    relative-to-action="org.intellij.sdk.action.GroupPopDialogAction"/>
-            <action
-                    class="GroupPopDialogAction"
-                    id="org.intellij.sdk.action.GroupPopDialogAction"
-                    text="A Group Action"
-                    description="SDK static grouped action example">
-            </action>
-        </group>
-        <action id="OpenFileOpenAction" class="OpenFileOpenAction" text="Open File">
-            <add-to-group group-id="NewGroup" anchor="first"/>
-        </action>
-        <action id="TweetAction" class="TweetAction" text="Tweet action">
-            <keyboard-shortcut keymap="$default" first-keystroke="ctrl BACK_SLASH" second-keystroke="ctrl T"/>
-        </action>
     </actions>
 </idea-plugin>
