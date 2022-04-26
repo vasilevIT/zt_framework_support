@@ -16,6 +16,7 @@ intellij {
 
     plugins = [
             "com.jetbrains.php:212.4746.92", // PhpStorm 2021.2
+            // "org.jetbrains.plugins.phpstorm-remote-interpreter:212.4746.52",
             "java-i18n",
             "properties",
             "xpath",
@@ -39,4 +40,7 @@ repositories {
 
 dependencies {
     implementation 'org.jetbrains:annotations:20.1.0'
+    // https://mvnrepository.com/artifact/com.intellij/openapi
+//    implementation 'com.intellij:openapi:5.0'
+
 }

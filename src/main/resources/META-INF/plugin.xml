@@ -15,10 +15,14 @@
 
     <extensions defaultExtensionNs="com.intellij">
         <!-- Add your extensions here -->
+        <completion.contributor
+                language="PHP"
+                implementationClass="config.ZtConfigContributor"/>
+
     </extensions>
 
     <actions>
-        <group id="org.intellij.sdk.action.DynamicActionGroup" class="DynamicActionGroup"
+        <group class="DynamicActionGroup"
                text="Dynamically Grouped Actions" description="SDK dynamically grouped action example"
                >
             <add-to-group group-id="NewGroup" anchor="after" relative-to-action="NewFile"/>
