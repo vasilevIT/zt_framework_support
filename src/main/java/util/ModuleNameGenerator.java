@@ -1,12 +1,11 @@
 package util;
 
-public class ModuleNameGenerator implements ClassNameGenerator {
+public class ModuleNameGenerator extends ClassNameGeneratorBase {
     @Override
     public String generate(String path) {
         String[] paths = FileUtil.getClearPathParths(path);
 
-        if (paths.length == 0) {
-            System.err.println("Class path is empty!");
+        if (!isPathValidForClass(paths)) {
             return "";
         }
 
