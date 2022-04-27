@@ -23,21 +23,35 @@ public class ConfigParser {
                     continue;
                 }
 
-
-                int firstSpaceIndex = lineTrimmed.indexOf("\t");
-                if (firstSpaceIndex == -1) {
-                    firstSpaceIndex = lineTrimmed.indexOf(" ");
-                    if (firstSpaceIndex == -1) {
-                        // wrong lines
-                        continue;
-                    }
-                }
-                int firstSpaceIndex2 = line.indexOf("\t");
-                if (firstSpaceIndex2 != 0) {
-                    firstSpaceIndex2 = line.indexOf(" ");
+                if (isCommentedLine(lineTrimmed)) {
+                    // its a comment
+                    continue;
                 }
 
-                String key = lineTrimmed.substring(0, firstSpaceIndex).trim();
+                if (isLocalRemoteValueDeclaration(lineTrimmed)) {
+                    // its a local/remote value declaration
+                    continue;
+                }
+
+                String nextLine = null;
+                if ((i + 1) < configLines.length) {
+                    nextLine = configLines[i + 1].trim();
+                }
+                boolean isKeyWithLocalRemoteValueDeclaration = isKeyWithLocalRemoteValueDeclaration(lineTrimmed, nextLine);
+                int firstSpaceIndex = findFirstSpaceIndex(lineTrimmed);
+                if (firstSpaceIndex == -1 && !isKeyWithLocalRemoteValueDeclaration) {
+                    // wrong lines
+                    continue;
+                }
+
+                int firstSpaceIndex2 = findFirstSpaceIndex(line);
+
+                String key;
+                if (isKeyWithLocalRemoteValueDeclaration) {
+                    key = lineTrimmed;
+                } else {
+                    key = lineTrimmed.substring(0, firstSpaceIndex).trim();
+                }
 
                 if (firstSpaceIndex2 != 0 && !innerTagStack.empty()) {
                     // Set stack empty. Out gone from inner block
@@ -105,5 +119,33 @@ public class ConfigParser {
         }
 
         return result;
+    }
+
+    private boolean isKeyWithLocalRemoteValueDeclaration(String line, String lineNext) {
+        if (findFirstSpaceIndex(line) != -1) {
+            // There are no spaces here
+            return  false;
+        }
+
+        if (lineNext != null) {
+            return lineNext.indexOf("l ") == 0 || lineNext.indexOf("r ") == 0 || lineNext.indexOf("l\t") == 0 || lineNext.indexOf("r\t") == 0;
+        }
+        return false;
+    }
+
+    private int findFirstSpaceIndex(String line) {
+        int firstSpaceIndex2 = line.indexOf("\t");
+        if (firstSpaceIndex2 != 0) {
+            firstSpaceIndex2 = line.indexOf(" ");
+        }
+        return firstSpaceIndex2;
+    }
+
+    private boolean isLocalRemoteValueDeclaration(String lineTrimmed) {
+        return lineTrimmed.indexOf("l ") == 0 || lineTrimmed.indexOf("r ") == 0;
+    }
+
+    private boolean isCommentedLine(String lineTrimmed) {
+        return lineTrimmed.indexOf("#") == 0;
     }
 }

@@ -30,6 +30,35 @@ public class ConfigParserTest {
         assertEquals(expectedMap, result);
 
 
+        // Case
+        configContent = "<?php exit; ?>\n" +
+                "chmod\n" +
+                "   l 1\n" +
+                "   r 2\n";
+        expectedMap = new HashMap<String, List<String>>();
+        expectedMap.put("chmod", new ArrayList<String>());
+
+        result = parser.parse(configContent);
+        assertEquals(expectedMap, result);
+
+        // Case
+        configContent = "<?php exit; ?>\n" +
+                "chmod\n" +
+                "\tl 1\n" +
+                "\tr 2\n";
+        expectedMap = new HashMap<String, List<String>>();
+        expectedMap.put("chmod", new ArrayList<String>());
+
+        // Case
+        configContent = "<?php exit; ?>\n" +
+                "chmod\n" +
+                " l 1\n" +
+                " r 2\n";
+        expectedMap = new HashMap<String, List<String>>();
+        expectedMap.put("chmod", new ArrayList<String>());
+
+        result = parser.parse(configContent);
+        assertEquals(expectedMap, result);
 
         // Case
         configContent = "<?php exit; ?>\n" +
@@ -56,6 +85,16 @@ public class ConfigParserTest {
         expectedMap = new HashMap<String, List<String>>();
         expectedMap.put("chmod", new ArrayList<String>());
         expectedMap.put("debug", new ArrayList<String>());
+
+        result = parser.parse(configContent);
+        assertEquals(expectedMap, result);
+
+        // Case
+        configContent = "<?php exit; ?>\n" +
+                "chmod 511\n" +
+                "# debug 1";
+        expectedMap = new HashMap<String, List<String>>();
+        expectedMap.put("chmod", new ArrayList<String>());
 
         result = parser.parse(configContent);
         assertEquals(expectedMap, result);
