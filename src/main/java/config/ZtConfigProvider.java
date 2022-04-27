@@ -4,7 +4,6 @@ import com.intellij.codeInsight.completion.CompletionParameters;
 import com.intellij.codeInsight.completion.CompletionProvider;
 import com.intellij.codeInsight.completion.CompletionResultSet;
 import com.intellij.codeInsight.lookup.LookupElementBuilder;
-import com.intellij.icons.AllIcons;
 import com.intellij.openapi.project.Project;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.search.GlobalSearchScope;
@@ -39,6 +38,8 @@ public class ZtConfigProvider extends CompletionProvider<CompletionParameters> {
                         if (key.indexOf(".") != -1) {
                             return true;
                         }
+                        // TODO Must add a value for key
+                        //  .withTypeText(value, true)
                         LookupElementBuilder lookupElement = LookupElementBuilder.create(key);
                         completionResultSet.addElement(lookupElement);
                         return true;
@@ -50,6 +51,8 @@ public class ZtConfigProvider extends CompletionProvider<CompletionParameters> {
                     if (values.size() > 0) {
                         List<String> actualValues = values.get(0);
                         for (var value : actualValues) {
+                            // TODO Must add a value for key
+                            //  .withTypeText(value, true)
                             LookupElementBuilder lookupElement = LookupElementBuilder.create(value);
                             completionResultSet.addElement(lookupElement);
                         }
@@ -63,6 +66,7 @@ public class ZtConfigProvider extends CompletionProvider<CompletionParameters> {
     @Nullable
     private String getConfigFieldPath(String signature) {
         String fieldPath = null;
+        signature = signature.replaceAll("[\\(\\)]", "");
         int appIndex = signature.indexOf("G.Con");
         if (appIndex != -1) {
             String origSign = signature.substring(appIndex);
@@ -72,12 +76,8 @@ public class ZtConfigProvider extends CompletionProvider<CompletionParameters> {
             }
             int fieldIndex = origSign.lastIndexOf(".");
             origSign = origSign.substring(0, fieldIndex);
-            System.out.println("origSign = " + origSign);
             fieldPath = origSign.replace("G.Con.", "");
-            System.out.println("fieldPath = " + fieldPath);
         }
-
-        fieldPath = fieldPath.replaceAll("[\\(\\)]", "");
 
         return fieldPath;
     }

@@ -18,6 +18,7 @@ public class ConfigParser {
                     lineTrimmed = lineTrimmed.replace("]", "");
                     lineTrimmed = lineTrimmed.trim();
 
+                    innerTagStack = new Stack<String>();
                     innerTagStack.add(lineTrimmed);
                     continue;
                 }
