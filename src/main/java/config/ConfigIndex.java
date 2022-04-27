@@ -23,23 +23,15 @@ public class ConfigIndex extends FileBasedIndexExtension<String, List<String>> {
 
     @Override
     public @NotNull DataIndexer<String, List<String>, FileContent> getIndexer() {
-//        TODO remove
-//        System.out.println("DataIndexer");
         return file -> {
-//            TODO remove
-//            System.out.println("DataIndexer, file:" + file);
             ConfigParser parser = new ConfigParser();
 
             PsiFile psiFile = file.getPsiFile();
 
             PsiElement openTag = psiFile.getFirstChild();
-//            TODO remove
-//            System.out.println("openTag " + openTag);
             String configContent = openTag.getText();
 
             final Map<String, List<String>> result =  parser.parse(configContent);
-//            TODO remove
-//            System.out.println("DataIndexer, result:" + result);
             return  result;
         };
     }
@@ -70,13 +62,7 @@ public class ConfigIndex extends FileBasedIndexExtension<String, List<String>> {
                 return false;
             }
 
-//            TODO remove
-//            System.out.println("file");
-//            System.out.println(file);
-//            System.out.println(file.getExtension());
-//            System.out.println(file.getUrl());
-//            System.out.println("res = " + (file.getExtension().equals("dat") && file.getUrl().contains("/_settings/")));
-            return (file.getExtension().equals("dat") && file.getUrl().contains("/_settings/"));
+            return (file.getExtension().equals("dat") && file.getUrl().contains("/_settings/config.dat"));
         };
     }
 

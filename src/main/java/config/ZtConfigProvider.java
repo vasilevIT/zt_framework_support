@@ -34,7 +34,7 @@ public class ZtConfigProvider extends CompletionProvider<CompletionParameters> {
             String field = fieldPath;
             if (field != null) {
                 fileBasedIndex.processAllKeys(ConfigIndex.identity, key -> {
-                    if (field.equals("G.Con")) {
+                    if (field.equals("G.Config")) {
                         if (key.indexOf(".") != -1) {
                             return true;
                         }
@@ -67,7 +67,7 @@ public class ZtConfigProvider extends CompletionProvider<CompletionParameters> {
     private String getConfigFieldPath(String signature) {
         String fieldPath = null;
         signature = signature.replaceAll("[\\(\\)]", "");
-        int appIndex = signature.indexOf("G.Con");
+        int appIndex = signature.indexOf("G.Config");
         if (appIndex != -1) {
             String origSign = signature.substring(appIndex);
             int endIndex = origSign.indexOf("|");
@@ -76,7 +76,7 @@ public class ZtConfigProvider extends CompletionProvider<CompletionParameters> {
             }
             int fieldIndex = origSign.lastIndexOf(".");
             origSign = origSign.substring(0, fieldIndex);
-            fieldPath = origSign.replace("G.Con.", "");
+            fieldPath = origSign.replace("G.Config.", "");
         }
 
         return fieldPath;
