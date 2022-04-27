@@ -1,13 +1,11 @@
 package config;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Stack;
+import java.util.*;
 
 public class ConfigParser {
 
-    public Map<String, String> parse(String configContent) {
-        HashMap<String, String> result = new HashMap<>();
+    public Map<String, List<String>> parse(String configContent) {
+        HashMap<String, List<String>> result = new HashMap<String, List<String>>();
 
         String[] configLines = configContent.split("\n");
         Stack<String> innerTagStack = new Stack<String>();
@@ -53,23 +51,55 @@ public class ConfigParser {
                         String currentInnerKey = keyInnerItems[j];
                         String nextInnerKey = keyInnerItems[j + 1];
 
+                        // Add to parent item
+                        if (!innerTagStack.empty()) {
+                            String join = String.join(".", innerTagStack);
+                            List<String> list;
+
+                            if (result.get(join) == null) {
+                                list = new ArrayList<>();
+                            } else {
+                                list = result.get(join);
+                            }
+                            list.add(currentInnerKey);
+                            result.put(join, list);
+                        }
+
                         innerTagStack.add(currentInnerKey);
 
-                        result.put(String.join(".", innerTagStack), nextInnerKey);
+                        String join = String.join(".", innerTagStack);
+                        List<String> list;
+
+                        if (result.get(join) == null) {
+                            list = new ArrayList<>();
+                        } else {
+                            list = result.get(join);
+                        }
+                        list.add(nextInnerKey);
+                        result.put(join, list);
                     }
 
                     key = String.join(".", innerTagStack) + "." + keyInnerItems[keyInnerItems.length - 1];
-                    result.put(key, "");
+                    result.put(key, null);
 
                     continue;
                 }
 
                 if (!innerTagStack.empty()) {
-                    result.put(String.join(".", innerTagStack), key);
+
+                    String join = String.join(".", innerTagStack);
+                    List<String> list;
+                    if (result.get(join) == null) {
+                        list = new ArrayList<>();
+                    } else {
+                        list = result.get(join);
+                    }
+                    list.add(key);
+                    result.put(join, list);
                     key = String.join(".", innerTagStack) + "." + key;
                 }
 
-                result.put(key, "");
+                result.put(key, null);
             }
         }
 

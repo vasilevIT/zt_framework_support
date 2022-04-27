@@ -76,7 +76,7 @@ public class ZtConfigProvider extends CompletionProvider<CompletionParameters> {
 //                    TODO remove
 //                    System.out.println("fileBasedIndex, key accepted " + key);
 
-                    List<String> values = fileBasedIndex.getValues(ConfigIndex.identity, key, scope);
+                    List<List<String>> values = fileBasedIndex.getValues(ConfigIndex.identity, key, scope);
 //                    TODO remove
 //                    System.out.println("fileBasedIndex, values, " + values);
 
@@ -86,9 +86,12 @@ public class ZtConfigProvider extends CompletionProvider<CompletionParameters> {
                     if (values.size() > 0) {
 //                        TODO remove
 //                        System.out.println("fileBasedIndex, values[0], " + values.get(0));
-                        LookupElementBuilder lookupElement = LookupElementBuilder.create(key).withTypeText(values.get(0), true).withIcon(AllIcons.Nodes.Class);
+                        List<String> actualValues = values.get(0);
+                        for (var value : actualValues) {
+                            LookupElementBuilder lookupElement = LookupElementBuilder.create(key).withTypeText(value, true).withIcon(AllIcons.Nodes.Class);
+                            completionResultSet.addElement(lookupElement);
+                        }
 
-                        completionResultSet.addElement(lookupElement);
                     }
                     return true;
                 }, project);

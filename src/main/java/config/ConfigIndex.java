@@ -6,20 +6,23 @@ import com.intellij.util.indexing.*;
 import com.intellij.util.io.DataExternalizer;
 import com.intellij.util.io.EnumeratorStringDescriptor;
 import com.intellij.util.io.KeyDescriptor;
+import com.intellij.util.io.externalizer.StringCollectionExternalizer;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
-public class ConfigIndex extends FileBasedIndexExtension<String, String> {
-    public static final ID<String, String> identity = ID.create("ZtFrameworkTools.ConfigIndex");
+public class ConfigIndex extends FileBasedIndexExtension<String, List<String>> {
+    public static final ID<String, List<String>> identity = ID.create("ZtFrameworkTools.ConfigIndex");
 
     @Override
-    public @NotNull ID<String, String> getName() {
+    public @NotNull ID<String, List<String>> getName() {
         return identity;
     }
 
     @Override
-    public @NotNull DataIndexer<String, String, FileContent> getIndexer() {
+    public @NotNull DataIndexer<String, List<String>, FileContent> getIndexer() {
 //        TODO remove
 //        System.out.println("DataIndexer");
         return file -> {
@@ -34,7 +37,7 @@ public class ConfigIndex extends FileBasedIndexExtension<String, String> {
 //            System.out.println("openTag " + openTag);
             String configContent = openTag.getText();
 
-            final Map<String, String> result =  parser.parse(configContent);
+            final Map<String, List<String>> result =  parser.parse(configContent);
 //            TODO remove
 //            System.out.println("DataIndexer, result:" + result);
             return  result;
@@ -47,8 +50,8 @@ public class ConfigIndex extends FileBasedIndexExtension<String, String> {
     }
 
     @Override
-    public @NotNull DataExternalizer<String> getValueExternalizer() {
-        return EnumeratorStringDescriptor.INSTANCE;
+    public @NotNull DataExternalizer<List<String>> getValueExternalizer() {
+        return StringCollectionExternalizer.STRING_LIST_EXTERNALIZER;
     }
 
     @Override
