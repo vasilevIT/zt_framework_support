@@ -80,7 +80,7 @@ public class ConfigParser {
                     }
 
                     key = String.join(".", innerTagStack) + "." + keyInnerItems[keyInnerItems.length - 1];
-                    result.put(key, null);
+                    result.put(key, new ArrayList<>());
 
                     continue;
                 }
@@ -99,7 +99,7 @@ public class ConfigParser {
                     key = String.join(".", innerTagStack) + "." + key;
                 }
 
-                result.put(key, null);
+                result.put(key, new ArrayList<>());
             }
         }
 
