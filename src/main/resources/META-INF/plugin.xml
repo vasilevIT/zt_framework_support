@@ -18,7 +18,7 @@
         <completion.contributor
                 language="PHP"
                 implementationClass="config.ZtConfigContributor"/>
-
+        <fileBasedIndex implementation="config.ConfigIndex" id="config-index"/>
     </extensions>
 
     <actions>
