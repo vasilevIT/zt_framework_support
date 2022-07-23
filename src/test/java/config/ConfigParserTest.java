@@ -62,6 +62,19 @@ public class ConfigParserTest {
 
         // Case
         configContent = "<?php exit; ?>\n" +
+                "debug 1\n" +
+                "chmod\n" +
+                " l 1\n" +
+                " r 2\n";
+        expectedMap = new HashMap<String, List<String>>();
+        expectedMap.put("debug", new ArrayList<String>());
+        expectedMap.put("chmod", new ArrayList<String>());
+
+        result = parser.parse(configContent);
+        assertEquals(expectedMap, result);
+
+        // Case
+        configContent = "<?php exit; ?>\n" +
                 "chmod 511";
         expectedMap = new HashMap<String, List<String>>();
         expectedMap.put("chmod", new ArrayList<String>());
@@ -210,6 +223,35 @@ public class ConfigParserTest {
         expectedMap.put("shop.base_uri2", new ArrayList<String>());
         expectedMap.put("any", listAnyValue);
         expectedMap.put("any.base_uri2", new ArrayList<String>());
+
+        result = parser.parse(configContent);
+        assertEquals(expectedMap, result);
+    }
+
+    @Test
+    public void testWithRemote() {
+        ConfigParser parser = new ConfigParser();
+
+        Map<String, List<String>> expectedMap = new HashMap<String, List<String>>();
+
+        Map<String, List<String>> result;
+        // Case
+        String configContent = "<?php exit; ?>\n" +
+                "chmod\t511\n" +
+                "dbupdated\t1630683690.0571\n" +
+                "db_mssql_path\n" +
+                "\tl\t'sqlsrv://zero:mI1sVyUNjGtkbw9FaQnv@194.41.52.100:9433/sephora_hub/?persistent=false&query_timeout=60'\n" +
+                "\tr\t'mssql://zero:5fgQkoVN8Z0e@sephora_test/sephora_hub/?persistent=false'\n" +
+                "db_path\n" +
+                "\tl\t'mysqli://common_user:JshaJslapr1wqe@mysql/zt-ru_sephora/'\n" +
+                "\tr\t'mysql://common_user:JshaJslapr1wqe@sephora-mysql:3311/zt-ru_sephora/'\n" +
+                "debug\t1";
+        expectedMap = new HashMap<String, List<String>>();
+        expectedMap.put("chmod", new ArrayList<String>());
+        expectedMap.put("dbupdated", new ArrayList<String>());
+        expectedMap.put("db_mssql_path", new ArrayList<String>());
+        expectedMap.put("db_path", new ArrayList<String>());
+        expectedMap.put("debug", new ArrayList<String>());
 
         result = parser.parse(configContent);
         assertEquals(expectedMap, result);

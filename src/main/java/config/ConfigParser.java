@@ -33,16 +33,17 @@ public class ConfigParser {
                     continue;
                 }
 
+                // TODO WTF? Why these lines need?
                 String nextLine = null;
                 if ((i + 1) < configLines.length) {
                     nextLine = configLines[i + 1].trim();
                 }
                 boolean isKeyWithLocalRemoteValueDeclaration = isKeyWithLocalRemoteValueDeclaration(lineTrimmed, nextLine);
                 int firstSpaceIndex = findFirstSpaceIndex(lineTrimmed);
-                if (firstSpaceIndex == -1 && !isKeyWithLocalRemoteValueDeclaration) {
-                    // wrong lines
-                    continue;
-                }
+//                if (firstSpaceIndex == -1 && !isKeyWithLocalRemoteValueDeclaration) {
+//                    // wrong lines
+//                    continue;
+//                }
 
                 int firstSpaceIndex2 = findFirstSpaceIndex(line);
 
@@ -50,7 +51,11 @@ public class ConfigParser {
                 if (isKeyWithLocalRemoteValueDeclaration) {
                     key = lineTrimmed;
                 } else {
-                    key = lineTrimmed.substring(0, firstSpaceIndex).trim();
+                    if (firstSpaceIndex > 0 ) {
+                        key = lineTrimmed.substring(0, firstSpaceIndex).trim();
+                    } else {
+                        key = lineTrimmed;
+                    }
                 }
 
                 if (firstSpaceIndex2 != 0 && !innerTagStack.empty()) {
@@ -135,14 +140,14 @@ public class ConfigParser {
 
     private int findFirstSpaceIndex(String line) {
         int firstSpaceIndex2 = line.indexOf("\t");
-        if (firstSpaceIndex2 != 0) {
+        if (firstSpaceIndex2 == -1) {
             firstSpaceIndex2 = line.indexOf(" ");
         }
         return firstSpaceIndex2;
     }
 
     private boolean isLocalRemoteValueDeclaration(String lineTrimmed) {
-        return lineTrimmed.indexOf("l ") == 0 || lineTrimmed.indexOf("r ") == 0;
+        return lineTrimmed.indexOf("l ") == 0 || lineTrimmed.indexOf("r ") == 0 || lineTrimmed.indexOf("l\t") == 0 || lineTrimmed.indexOf("r\t") == 0;
     }
 
     private boolean isCommentedLine(String lineTrimmed) {
