@@ -54,6 +54,9 @@ public class ZtConfigProvider extends CompletionProvider<CompletionParameters> {
                             // TODO Must add a value for key
                             //  .withTypeText(value, true)
                             LookupElementBuilder lookupElement = LookupElementBuilder.create(value);
+
+                            // TODO replace "value" for real key value :)
+                            lookupElement = lookupElement.withTypeText("value");
                             completionResultSet.addElement(lookupElement);
                         }
                     }

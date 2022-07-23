@@ -255,5 +255,30 @@ public class ConfigParserTest {
 
         result = parser.parse(configContent);
         assertEquals(expectedMap, result);
+
+        // Case
+        configContent = "<?php exit; ?>\n" +
+                "chmod\t511\n" +
+                "dbupdated\t1630683690.0571\n" +
+                "db_mssql_path\n" +
+                "\tl\t'sqlsrv://zero:mI1sVyUNjGtkbw9FaQnv@194.41.52.100:9433/sephora_hub/?persistent=false&query_timeout=60'\n" +
+                "\tr\t'mssql://zero:5fgQkoVN8Z0e@sephora_test/sephora_hub/?persistent=false'\n" +
+                "[db]\n" +
+                "\tdb_path\n" +
+                "\t\tl\t'mysqli://common_user:JshaJslapr1wqe@mysql/zt-ru_sephora/'\n" +
+                "\t\tr\t'mysql://common_user:JshaJslapr1wqe@sephora-mysql:3311/zt-ru_sephora/'\n" +
+                "debug\t1";
+        expectedMap = new HashMap<String, List<String>>();
+        expectedMap.put("chmod", new ArrayList<String>());
+        expectedMap.put("dbupdated", new ArrayList<String>());
+        expectedMap.put("db_mssql_path", new ArrayList<String>());
+        ArrayList<String> dbList = new ArrayList<>();
+        dbList.add("db_path");
+        expectedMap.put("db", dbList);
+        expectedMap.put("db.db_path", new ArrayList<String>());
+        expectedMap.put("debug", new ArrayList<String>());
+
+        result = parser.parse(configContent);
+        assertEquals(expectedMap, result);
     }
 }
